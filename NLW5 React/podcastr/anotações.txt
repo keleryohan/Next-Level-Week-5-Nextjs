@@ -1,0 +1,54 @@
+comandos:
+npx create-next-app podcastr - criar um projeto next base
+
+yarn add typescript @types/react @types/node -D /-/ instalando typescript, e a integração do react e do node com typescript
+yarn add sass - instalando o sass/'super css'
+yarn add date-fns - biblioteca pra lidar com datas
+yarn add json-server -D - simula o backend através de um json(server.json)
+yarn add axios - biblioteca para fazer requisições http - pasta services/api
+yarn add rc-slider - lida com barras de progresso/sliders
+
+yarn dev   - iniciar projeto em modo de desenvolvedor
+yarn build - constroe a versão do projeto para produção
+yarn start - roda o projeto como será rodado em produção
+
+obs: formato .tsx = typescript + jsx (html no xml/javascript)(permite ter componentes react)
+obs: formato .scss = formato do sass ou 'Syntactically Awesome Style Sheets'
+obs: no next usa-se o .module em arquivos css (styles.module.css/scss), 
+ que são arquivos css feitos apenas para um componente,
+ a maneira de importar esses styles tb é diferente
+
+todos os componentes são chamados dentro do _app
+todos os componentes são chamados dentro do _document também, 
+ mas esse é para coisas constantes, como importar fontes de letra 
+
+o BACKEND vai ser simulado usando a ferramenta json-server
+ para rodar, usa-se o script yarn server(defindo no package.json)
+os 3 métodos de chamada de API estão em pages/index.js
+
+o componente IMAGE do next (ex em pages/index) tem o domain da fonte da imagem configurado no next.config.js
+
+as ROTAS são definidas pelos arquivo(e seus nomes) .tsx que n começam com underline(_) presentes no folder 'pages'
+as formas de definir parâmetros para a URL são:
+    método slug: criar um arquivo dentro da pasta da página cujo o nome seja: [nome_do_param].tsx
+    ex: pasta episodes/[slug].tsx vai ter o parâmetro 'slug' acessível via useRouter.query.slug, com link .../episodes/dados no slug
+    obs: para se usar com o next é bom utilizar junto com o componente Link(ex no pagex/index.tsx)
+    para se acessar o conteúdo no slug dentro de uma função getProps, usa-se context(ex no [slug].tsx)
+    obs2: para se utilizar GetStaticProps em algo dinâmico(como uma página que 
+        precisa de parâmetros, como um slug)
+        é necessário exportar o método getStaticPaths(ex no [slug].tsx)
+
+CONTEXT são informações/funções que vários arquivos/componentes/páginas tem
+    que ter acesso. o componente relacionado ao context precisa estar 
+    ao redor do componente que precisa ter acesso a informação 
+    exemplo em context/PlayerContext, _app.tsx, e component/Player 
+    nessa ordem ^ definindo context, colocando o componente do contexto
+    e utilizando a informação
+
+
+para se manipular/acessar elementos html nativos usando react,
+    usa-se a função useRef. ex(component/Player): 
+    const audioRef = useRef<HTMLAudioElement>(null);
+    //obs: o tipo typescript é opcional
+    e no elemento html em si, usa-se 'ref', ex:
+    <audio src={episode.url} ref={audioRef} />
